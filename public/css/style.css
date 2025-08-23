@@ -1,0 +1,71 @@
+:root {
+    --primary-color: #eeff00; /* Warna yellow-green */
+    /* --secondary-color: #50e3c2;
+    --background-color: #f5f7fa;
+    --text-color: #333; */
+}
+
+/* Google Font: Jaldi */
+/* .jaldi-regular {
+    font-family: "Jaldi", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.jaldi-bold {
+    font-family: "Jaldi", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+} */
+
+/* font jaldi */
+/* body {
+    font-family: "Jaldi", sans-serif;
+    font-family: "Google Sans Code", monospace;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.2rem;
+} */
+
+/* font google sans code */
+body {
+    font-family: "Google Sans Code", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* font noto serif */
+/* body {
+    font-family: "Noto Serif", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+} */
+
+*::selection {
+    background: var(--primary-color);
+    color: #000;
+}
+
+footer ::selection {
+    background: black;
+    color: var(--primary-color);
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+/* navbar ter-select */
+.navbar-selected {
+    background-color: var(--primary-color);
+}
+
+/* tailwind */
+/* @import "tailwindcss";
+@theme {
+    --color-yellow-green: #EEFF00;
+} */
