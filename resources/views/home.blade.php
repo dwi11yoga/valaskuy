@@ -1,9 +1,9 @@
 @extends('layout')
 
 @section('content')
-    <div class="grid grid-cols-2 gap-10 mx-20">
+    <div class="grid md:grid-cols-2 grid-cols-1 gap-10 md:mx-20">
         {{-- teks --}}
-        <div class="sticky top-0 flex items-center">
+        <div class="flex items-center">
             <div class="">
                 <h1 class="text-5xl font-bold">
                     {{-- Lakukan Perhitungan Valas --}}
@@ -48,13 +48,13 @@
         {{-- form & hasil --}}
         <div class="flex justify-center items-center">
             {{-- form --}}
-            <form action="/" method="POST" class="w-8/12" id="form">
+            <form action="/" method="POST" class="md:w-8/12 w-full" id="form">
                 @csrf
                 <div class="space-y-3">
                     {{-- mata uang asal --}}
                     <label for="from">Mata uang asal</label>
-                    <input type="text" name="from" id="from" list="currencyList" value="{{ old('from', $request['from'] ?? '') }}"
-                        required
+                    <input type="text" name="from" id="from" list="currencyList"
+                        value="{{ old('from', $request['from'] ?? '') }}" required
                         class="block border rounded-md px-4 py-3 font-normal w-full @error('from')
                             border-red-500
                             @else
@@ -66,8 +66,8 @@
 
                     {{-- Nominal --}}
                     <label for="amount">Nominal</label>
-                    <input type="number" name="amount" id="amount" min="1" value="{{ old('amount', $request['amount'] ?? '') }}"
-                        min="1" required
+                    <input type="number" name="amount" id="amount" min="1" step="any"
+                        value="{{ old('amount', $request['amount'] ?? '') }}" required
                         class="block border rounded-md px-4 py-3 font-normal w-full @error('amount')
                             border-red-500
                             @else
@@ -79,8 +79,8 @@
 
                     {{-- Mata uang tujuan --}}
                     <label for="to">Ubah ke</label>
-                    <input type="text" name="to" id="to" list="currencyList" value="{{ old('to', $request['to'] ?? '') }}"
-                        required
+                    <input type="text" name="to" id="to" list="currencyList"
+                        value="{{ old('to', $request['to'] ?? '') }}" required
                         class="block border rounded-md px-4 py-3 font-normal w-full @error('to')
                             border-red-500
                             @else
@@ -92,8 +92,8 @@
 
                     {{-- Mata uang tujuan --}}
                     <label for="tax">Pajak (%)</label>
-                    <input type="number" name="tax" id="tax" value="{{ old('tax', $tax['percentage'] ?? 0) }}" min="0"
-                        required
+                    <input type="number" name="tax" id="tax" value="{{ old('tax', $tax['percentage'] ?? 0) }}"
+                        min="0" required
                         class="block border rounded-md px-4 py-3 font-normal w-full @error('tax')
                             border-red-500
                             @else
@@ -113,13 +113,13 @@
 
                 {{-- sumbit --}}
                 <input type="submit" value="Hitung"
-                    class="block mt-5 border border-gray-400 rounded-md px-4 py-3 font-normal w-full cursor-pointer bg-black hover:bg-white text-white hover:text-black transition-colors">
+                    class="block mt-5 border button-color border-gray-400 rounded-md px-4 py-3 font-normal w-full cursor-pointer transition-colors">
             </form>
 
             {{-- Hasil --}}
-            <div class="min-w-80 hidden" id="result">
+            <div class="md:min-w-96 md:w-fit w-full hidden" id="result">
                 @if (!empty($rateCalculation))
-                    <div class="mt-6 p-6 rounded-md" style="background-color: var(--primary-color)">
+                    <div class="mt-6 p-6 rounded-md highlight">
                         {{-- judul --}}
                         <div class="flex justify-between items-center mb-3">
                             <div class="">Hasil Tukar</div>
@@ -151,7 +151,7 @@
 
                     {{-- tombol kalkulasi kembali --}}
                     <button id="calculateAgain"
-                        class="block mt-3 border border-gray-400 rounded-md px-4 py-3 font-normal w-full cursor-pointer bg-black hover:bg-white text-white hover:text-black transition-colors">
+                        class="block mt-3 border border-gray-400 rounded-md px-4 py-3 font-normal w-full cursor-pointer button-color transition-colors">
                         Kalkulasi lagi
                     </button>
                 @endif

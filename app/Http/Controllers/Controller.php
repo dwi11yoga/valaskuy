@@ -16,8 +16,8 @@ abstract class Controller
             $apiUrl = env('CURRENCY_API_URL');
             $apiVer = env('CURRENCY_API_VER', 'v1');
             $apiDate = env('CURRENCY_API_DATE', 'latest');
-            $apiEndpoint = '/currencies/idr';
-            $urlAPI = $apiUrl . '@' . $apiVer . '/' . $apiDate . '/' . $apiEndpoint . '.json';
+            $apiEndpoint = 'currencies';
+            $urlAPI = $apiUrl . '@' . $apiDate . '/' . $apiVer . '/' . $apiEndpoint . '.json';
 
             // dapatkan daftar mata uang dari api
             $currencyList = Http::timeout(5)->get($urlAPI)->json();
@@ -26,7 +26,7 @@ abstract class Controller
             // simpan ke session
             session(['currencyList' => $currencyList]);
         } else {
-            // jika cookie ada, ambil data dari cookie
+            // jika cookie ada, ambil data dari session
             $currencyList = $cekSession;
         }
 

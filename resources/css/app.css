@@ -1,11 +1,98 @@
-@import 'tailwindcss';
-
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
-
+@import "tailwindcss";
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --color-yellow-green: var(--primary-color);
 }
+
+:root {
+    --bg: #ffffff;
+    --text: #111827;
+    --navbar-bg: white;
+    --navbar-text: black;
+    --highlight-bg: var(--primary-color);
+    --highlight-text: black;
+    --button-bg: black;
+    --button-text: white;
+    --button-hover-bg: white;
+    --button-hover-text: black;
+    --table-even: oklch(97% 0 0); /*neutral-100*/
+    --table-even-hover: oklch(92.2% 0 0); /*neutral-200*/
+    --primary-color: #eeff00; /* Warna yellow-green */
+}
+
+/* dark mode variables (aktif saat html punya class "dark") */
+html.dark {
+    --bg: oklch(14.5% 0 0); /*neutral-950*/
+    --text: #f8fafc;
+    --navbar-bg: oklch(20.5% 0 0); /*neutral-900*/
+    --navbar-text: white;
+    --button-bg: white;
+    --button-text: black;
+    --button-hover-bg: black;
+    --button-hover-text: white;
+    --table-even: oklch(20.5% 0 0); /*neutral-900*/
+    --table-even-hover: oklch(26.9% 0 0); /*neutral-800*/
+
+}
+
+/* gunakan variable di style global */
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: "Google Sans Code", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+nav {
+    background-color: var(--navbar-bg);
+    color: var(--navbar-text);
+}
+
+.highlight {
+    background-color: var(--highlight-bg);
+    color: var(--highlight-text);
+}
+
+.highlight ::selection {
+    background: black;
+    color: var(--primary-color);
+}
+
+.button-color {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+}
+
+.button-color:hover {
+    background-color: var(--button-hover-bg);
+    color: var(--button-hover-text);
+}
+
+.table-even{
+    background-color: var(--table-even);
+}
+
+.table-header{
+    
+}
+
+/* @import 'tailwindcss/preflight' */
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
+/* Custom css */
+*::selection {
+    background: var(--primary-color);
+    color: #000;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+/* navbar ter-select */
+/* .navbar-selected {
+    background-color: var(--primary-color);
+} */

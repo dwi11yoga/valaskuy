@@ -63,3 +63,10 @@ h1 {
 .navbar-selected {
     background-color: var(--primary-color);
 }
+
+/* tailwind */
+@import "tailwindcss";
+
+@theme {
+    --color-yellow-green: #eeff00;
+}

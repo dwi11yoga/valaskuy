@@ -27,7 +27,7 @@
             </datalist>
 
             <input type="submit" value="Lihat"
-                class="border rounded-md px-4 py-3 bg-black text-white cursor-pointer hover:bg-white hover:text-black transition-colors">
+                class="border rounded-md px-4 py-3 cursor-pointer button-color transition-colors">
 
         </form>
         @error('currency')
@@ -43,10 +43,10 @@
     </div>
 
     {{-- Daftar kurs --}}
-    <div class="">
+    <div class="overflow-x-auto">
         <table class="table-auto w-full">
             <thead>
-                <tr class="bg-gray-300">
+                <tr class="highlight">
                     {{-- <th class="text-left p-4">#</th> --}}
                     <th class="text-left p-4">Kode</th>
                     <th class="text-left p-4">Mata uang</th>
@@ -61,7 +61,7 @@
                     <?php
                     $change = substr($changes[$id], 0, 1); // ambil huruf pertama
                     if ($changes[$id] == 'N/A') {
-                        $textColor = 'text-black';
+                        $textColor = '';
                     } elseif ($change == '-') {
                         $textColor = 'text-red-500';
                     } else {
@@ -70,7 +70,7 @@
                         $changes[$id] = '+' . $changes[$id];
                     }
                     ?>
-                    <tr class="{{ $i % 2 == 0 ? 'bg-neutral-100' : '' }} hover:bg-neutral-200">
+                    <tr class="{{ $i % 2 == 0 ? 'table-even' : '' }}">
                         {{-- <td class="text-left p-4">{{ $i }}</td> --}}
                         <td class="text-left p-4 uppercase">{{ $id }}</td>
                         <td class="text-left p-4">{{ $currencyList[$id] ?? '' }}</td>

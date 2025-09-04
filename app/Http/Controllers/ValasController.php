@@ -49,11 +49,26 @@ class ValasController extends Controller
             'amount' => 'required|numeric|min:1',
             'tax' => 'numeric'
         ]);
-        // dd($validatedData);
 
         // Ambil kode mata uang dari request
         $from = $this->getCurrencyCode($validatedData['from']);
         $to = $this->getCurrencyCode($validatedData['to']);
+
+        // dapatkan seluruh daftar mata uang
+        $currencyList = $this->getCurrencyList();
+
+        // cek apakah kode mata uang ada pada daftar mata uang
+        $check = [
+            'from' => $from,
+            'to' => $to
+        ];
+        foreach ($check as $id => $d) {
+            if (empty($currencyList[$d])) {
+                return back()->withInput()->withErrors([
+                    $id => 'Mata uang yang kamu pilih tidak valid'
+                ]);
+            }
+        }
 
         // ambil data dari api
         $rates = $this->getExchangeRates($from, 'latest');
@@ -68,7 +83,7 @@ class ValasController extends Controller
         // kembali ke halaman home
         return view('home')->with([
             'title' => 'Konverter Mata Uang Online',
-            'currencies' => $this->getCurrencyList(),
+            'currencies' => $currencyList,
             'request' => [
                 'from' => $request->from,
                 'amount' => $request->amount,
