@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 abstract class Controller
 {
@@ -17,12 +19,22 @@ abstract class Controller
             $apiVer = env('CURRENCY_API_VER', 'v1');
             $apiDate = env('CURRENCY_API_DATE', 'latest');
             $apiEndpoint = 'currencies';
-            $urlAPI = $apiUrl . '@' . $apiDate . '/' . $apiVer . '/' . $apiEndpoint . '.json';
+            $urlAPI = $apiUrl . '@' . $apiDate . '/' . 'v5' . '/' . $apiEndpoint . '.json';
 
             // dapatkan daftar mata uang dari api
-            $currencyList = Http::timeout(5)->get($urlAPI)->json();
+            $currencyList = Http::timeout(5)->get($urlAPI);
+
+            // jika status nya bukan 200, alihkan ke halaman error (503)
+            if ($currencyList->failed()) {
+                abort(503, 'bla', [
+                    'title' => 'Error',
+                ]);
+            }
+            $currencyList = $currencyList->json();
+
             // hapus mata uang yang tidak memiliki keterangan mata uang
             $currencyList = array_filter($currencyList, fn($v) => $v !== "");
+
             // simpan ke session
             session(['currencyList' => $currencyList]);
         } else {
@@ -41,7 +53,16 @@ abstract class Controller
         $apiVer = env('CURRENCY_API_VER', 'v1');
         // $apiDate = env('CURRENCY_API_DATE', 'latest');
         $urlAPI = $apiUrl . '@' . $date . '/' . $apiVer . '/currencies/' . $baseCurrency . '.json';
-        $rates = Http::timeout(5)->get($urlAPI)->json();
+        $rates = Http::timeout(5)->get($urlAPI);
+
+        // jika status nya bukan 200, alihkan ke halaman error (503)
+        if ($rates->failed()) {
+            abort(503, 'bla', [
+                'title' => 'Error',
+            ]);
+        }
+
+        $rates = $rates->json();
         return $rates;
     }
 

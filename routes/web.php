@@ -11,11 +11,14 @@ Route::get('/', [ValasController::class, 'index']);
 Route::post('/', [ValasController::class, 'calculate']);
 
 // Daftar Kurs
-Route::get('/daftar-kurs', [ExchangeListController::class, 'index']);
+Route::get('/exchange-rates', [ExchangeListController::class, 'index']);
 
 // tentang
-Route::get('/tentang', function () {
+Route::get('/about', function () {
     return view('about', [
-        'title' => 'Tentang'
+        'title' => __('about.title')
     ]);
 });
+
+// ganti bahasa
+Route::post('/language', [ValasController::class, 'lang']);

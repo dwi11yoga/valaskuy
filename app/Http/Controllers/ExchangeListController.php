@@ -36,7 +36,7 @@ class ExchangeListController extends Controller
             // cek apakah kode mata uang ada pada daftar mata uang
             if (empty($currencyList[$currencyCode])) {
                 return back()->withInput()->withErrors([
-                    'currency' => 'Mata uang yang kamu pilih tidak valid'
+                    'currency' => __('validationMessage.wrongCurrencyCode'),
                 ]);
             }
         } else {
@@ -73,7 +73,7 @@ class ExchangeListController extends Controller
         }
 
         return view('exchange-list', [
-            'title' => 'Kurs',
+            'title' => __('exchange-list.title'),
             'currencyCode' => strtoupper($currencyCode),
             'currencyList' => $currencyList,
             'exchangeRates' => $exchangeRates,

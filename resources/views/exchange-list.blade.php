@@ -2,10 +2,10 @@
 @section('content')
     {{-- header/judul --}}
     <div class="">
-        <h1 class="text-5xl">Daftar Kurs</h1>
-        <div class="max-w-2/3">
-            {{-- Lihat nilai tukar terkini dari berbagai mata uang terhadap rupiah maupun antar mata uang asing. --}}
-            Lihat daftar lengkap nilai tukar mata uang terkini berdasarkan pilihan mata uang utama kamu.
+        <h1 class="text-5xl">{{ __('exchange-list.title') }}</h1>
+        <div class="md:max-w-2/3">
+            {{ __('exchange-list.subtitle') }}
+            {{-- Lihat daftar lengkap nilai tukar mata uang terkini berdasarkan pilihan mata uang utama kamu. --}}
         </div>
     </div>
 
@@ -13,7 +13,8 @@
     <div class="">
         <form method="GET" class="flex space-x-2">
             {{-- Mata uang tujuan --}}
-            <input type="text" name="currency" id="currency" list="currencyList" placeholder="Pilih mata uang" required
+            <input type="text" name="currency" id="currency" list="currencyList"
+                placeholder="{{ __('exchange-list.currencyPlaceholder') }}" required
                 value="{{ old('currency', request('currency'), 'Indonesian Rupiah (IDR)') }}"
                 class="block border rounded-md px-4 py-3 w-full @error('currency')
                             border-red-500
@@ -26,7 +27,7 @@
                 @endforeach
             </datalist>
 
-            <input type="submit" value="Lihat"
+            <input type="submit" value="{{ __('exchange-list.submitText') }}"
                 class="border rounded-md px-4 py-3 cursor-pointer button-color transition-colors">
 
         </form>
@@ -37,9 +38,11 @@
 
     {{-- keterangan --}}
     <div class="text-sm">
-        <div class="">*Nilai tukar {{ $currencyCode }} diperbarui pada {{ $exchangeDate }}.</div>
-        <div class="">*Perubahan menunjukkan persentase kenaikan / penurunan nilai mata uang dibandingkan
-            dengan {{ now()->subDay()->format('Y-m-d') == $yesterdayDate->format('Y-m-d') ? 'kemarin': 'tanggal '. $yesterdayDate->translatedFormat('d F Y') }}.</div>
+        <div class="">
+            *{{ __('exchange-list.lastUpdatefootnote', ['currency' => $currencyCode, 'date' => $exchangeDate]) }}</div>
+        <div class="">
+            *{{ __('exchange-list.changesFootnote', ['date' => now()->subDay()->format('Y-m-d') == $yesterdayDate->format('Y-m-d') ? __('exchange-list.theadChangesYesterday') : __('exchange-list.theadChangesNotYesterday') . $yesterdayDate->translatedFormat('d F Y')]) }}
+        </div>
     </div>
 
     {{-- Daftar kurs --}}
@@ -48,10 +51,10 @@
             <thead>
                 <tr class="highlight">
                     {{-- <th class="text-left p-4">#</th> --}}
-                    <th class="text-left p-4">Kode</th>
-                    <th class="text-left p-4">Mata uang</th>
-                    <th class="text-left p-4">Nilai</th>
-                    <th class="text-left p-4">Perubahan</th>
+                    <th class="text-left p-4">{{ __('exchange-list.theadCode') }}</th>
+                    <th class="text-left p-4">{{ __('exchange-list.theadCurrency') }}</th>
+                    <th class="text-left p-4">{{ __('exchange-list.theadValue') }}</th>
+                    <th class="text-left p-4">{{ __('exchange-list.theadChanges'    ) }}</th>
                 </tr>
             </thead>
             <tbody>

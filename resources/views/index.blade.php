@@ -7,41 +7,14 @@
             <div class="">
                 <h1 class="text-5xl font-bold">
                     {{-- Lakukan Perhitungan Valas --}}
-                    Konverter Mata Uang Online
+                    {{-- Konverter Mata Uang Online --}}
+                    {{ __('index.title') }}
                 </h1>
                 <div class="max-w-4/5">
                     {{-- Hitung dengan mudah nilai tukar mata uang dari satu negara ke negara lain secara cepat dan akurat. --}}
-                    Hitung nilai tukar mata uang secara cepat dan akurat dengan kalkulator mata uang real-time.
+                    {{-- Hitung nilai tukar mata uang secara cepat dan akurat dengan kalkulator mata uang real-time. --}}
+                    {{ __('index.subtitle') }}
                 </div>
-
-                {{-- Hasil --}}
-                {{-- <div class="mt-6 p-6 rounded-md" style="background-color: var(--primary-color)"> --}}
-                {{-- judul --}}
-                {{-- <div class="flex justify-between items-center mb-3">
-                        <div class="">Hasil Tukar</div>
-                        <div class="text-sm">Data 20 Agustus 2025</div>
-                    </div> --}}
-
-                {{-- isi --}}
-                {{-- <div class="-space-y-3">
-                        <div class="">
-                            <div class="">
-                                USD
-                                <h1 class="-mt-3">20 =</h1>
-                            </div>
-                        </div>
-                        <div class="">
-                            <div class="">
-                                IDR
-                                <h1 class="-mt-3">325.000</h1>
-                            </div>
-                        </div>
-                    </div> --}}
-
-                {{-- keterangan --}}
-                {{-- <div class="">USD 1 = IDR 16.267</div>
-                    <div class="">Pajak = IDR 15.000 (10%)</div>
-                </div> --}}
             </div>
         </div>
 
@@ -52,9 +25,9 @@
                 @csrf
                 <div class="space-y-3">
                     {{-- mata uang asal --}}
-                    <label for="from">Mata uang asal</label>
+                    <label for="from">{{ __('index.fromLabel') }}</label>
                     <input type="text" name="from" id="from" list="currencyList"
-                        value="{{ old('from', $request['from'] ?? '') }}" required
+                        value="{{ old('from', $request['from'] ?? '') }}"
                         class="block border rounded-md px-4 py-3 font-normal w-full @error('from')
                             border-red-500
                             @else
@@ -65,9 +38,9 @@
                     @enderror
 
                     {{-- Nominal --}}
-                    <label for="amount">Nominal</label>
-                    <input type="number" name="amount" id="amount" min="1" step="any"
-                        value="{{ old('amount', $request['amount'] ?? '') }}" required
+                    <label for="amount">{{ __('index.amountLabel') }}</label>
+                    <input type="text" name="amount" id="amount" min="1" step="any"
+                        value="{{ old('amount', $request['amount'] ?? '') }}"
                         class="block border rounded-md px-4 py-3 font-normal w-full @error('amount')
                             border-red-500
                             @else
@@ -78,9 +51,9 @@
                     @enderror
 
                     {{-- Mata uang tujuan --}}
-                    <label for="to">Ubah ke</label>
+                    <label for="to">{{ __('index.toLabel') }}</label>
                     <input type="text" name="to" id="to" list="currencyList"
-                        value="{{ old('to', $request['to'] ?? '') }}" required
+                        value="{{ old('to', $request['to'] ?? '') }}"
                         class="block border rounded-md px-4 py-3 font-normal w-full @error('to')
                             border-red-500
                             @else
@@ -91,9 +64,9 @@
                     @enderror
 
                     {{-- Mata uang tujuan --}}
-                    <label for="tax">Pajak (%)</label>
-                    <input type="number" name="tax" id="tax" value="{{ old('tax', $tax['percentage'] ?? 0) }}"
-                        min="0" required
+                    <label for="tax">{{ __('index.taxLabel') }} (%)</label>
+                    <input type="text" name="tax" id="tax" value="{{ old('tax', $tax['percentage'] ?? 0) }}"
+                        min="0"
                         class="block border rounded-md px-4 py-3 font-normal w-full @error('tax')
                             border-red-500
                             @else
@@ -112,7 +85,7 @@
                 </div>
 
                 {{-- sumbit --}}
-                <input type="submit" value="Hitung"
+                <input type="submit" value="{{ __('index.submitText') }}"
                     class="block mt-5 border button-color border-gray-400 rounded-md px-4 py-3 font-normal w-full cursor-pointer transition-colors">
             </form>
 
@@ -122,7 +95,7 @@
                     <div class="mt-6 p-6 rounded-md highlight">
                         {{-- judul --}}
                         <div class="flex justify-between items-center mb-3">
-                            <div class="">Hasil Tukar</div>
+                            <div class="">{{ __('index.result') }}</div>
                         </div>
 
                         {{-- hasil --}}
@@ -143,16 +116,17 @@
 
                         {{-- keterangan --}}
                         <div class="">1 {{ $from }} = {{ $exchangeRate }} {{ $to }}</div>
-                        <div class="">Pajak = {{ $tax['amount'] }} {{ $to }} ({{ $tax['percentage'] }}%)
+                        <div class="">{{ __('index.taxLabel') }} = {{ $tax['amount'] }} {{ $to }}
+                            ({{ $tax['percentage'] }}%)
                         </div>
-                        <div class="text-sm mt-5 italic">*Termasuk pajak</div>
-                        <div class="text-sm italic">*Data {{ $date }}</div>
+                        <div class="text-sm mt-5 italic">*{{ __('index.taxFootnote') }}</div>
+                        <div class="text-sm italic">*{{ __('index.updateFootnote') }} {{ $date }}</div>
                     </div>
 
                     {{-- tombol kalkulasi kembali --}}
                     <button id="calculateAgain"
                         class="block mt-3 border border-gray-400 rounded-md px-4 py-3 font-normal w-full cursor-pointer button-color transition-colors">
-                        Kalkulasi lagi
+                        {{ __('index.calculateAgainText') }}
                     </button>
                 @endif
             </div>

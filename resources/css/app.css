@@ -31,7 +31,6 @@ html.dark {
     --button-hover-text: white;
     --table-even: oklch(20.5% 0 0); /*neutral-900*/
     --table-even-hover: oklch(26.9% 0 0); /*neutral-800*/
-
 }
 
 /* gunakan variable di style global */
@@ -52,6 +51,11 @@ nav {
     color: var(--highlight-text);
 }
 
+.primary-element {
+    background-color: var(--bg);
+    color: var(--text);
+}
+
 .highlight ::selection {
     background: black;
     color: var(--primary-color);
@@ -67,12 +71,8 @@ nav {
     color: var(--button-hover-text);
 }
 
-.table-even{
+.table-even {
     background-color: var(--table-even);
-}
-
-.table-header{
-    
 }
 
 /* @import 'tailwindcss/preflight' */

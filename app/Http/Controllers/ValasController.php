@@ -33,8 +33,8 @@ class ValasController extends Controller
         // MENAMPILKAN DAFTAR MATA UANG
         $currencyList = $this->getCurrencyList();
 
-        return view('home', [
-            'title' => 'Konverter Mata Uang Online',
+        return view('index', [
+            'title' => __('index.title'),
             'currencies' => $currencyList,
         ]);
     }
@@ -48,6 +48,14 @@ class ValasController extends Controller
             'to' => 'required',
             'amount' => 'required|numeric|min:1',
             'tax' => 'numeric'
+        ], [
+            // pesan error
+            'from.required' => __('validationMessage.from.required'),
+            'to.required' => __('validationMessage.to.required'),
+            'amount.required' => __('validationMessage.amount.required'),
+            'amount.numeric' => __('validationMessage.amount.numeric'),
+            'amount.min' => __('validationMessage.amount.min'),
+            'tax.numeric' => __('validationMessage.tax.numeric'),
         ]);
 
         // Ambil kode mata uang dari request
@@ -57,17 +65,19 @@ class ValasController extends Controller
         // dapatkan seluruh daftar mata uang
         $currencyList = $this->getCurrencyList();
 
-        // cek apakah kode mata uang ada pada daftar mata uang
+        // cek apakah kode mata uang yang dipilih ada pada daftar mata uang
         $check = [
             'from' => $from,
             'to' => $to
         ];
         foreach ($check as $id => $d) {
             if (empty($currencyList[$d])) {
-                return back()->withInput()->withErrors([
-                    $id => 'Mata uang yang kamu pilih tidak valid'
-                ]);
+                $error[$id] = __('validationMessage.wrongCurrencyCode');
             }
+        }
+        // jika ada kode mata uang dipilih tidak ada pada daftar mata uang
+        if (isset($error)) {
+            return back()->withInput()->withErrors($error);
         }
 
         // ambil data dari api
@@ -81,8 +91,8 @@ class ValasController extends Controller
         $rateCalculation = $rateCalculation + $tax;
 
         // kembali ke halaman home
-        return view('home')->with([
-            'title' => 'Konverter Mata Uang Online',
+        return view('index')->with([
+            'title' => __('index.title'),
             'currencies' => $currencyList,
             'request' => [
                 'from' => $request->from,
@@ -100,5 +110,15 @@ class ValasController extends Controller
             ],
             'date' => Carbon::parse($rates['date'])->translatedFormat('d F Y'),
         ]);
+    }
+
+    // Simpan prefrensi bahasa
+    public function lang(Request $request)
+    {
+        // simpan di cookie
+        $duration = 365 * 24 * 60; // satu tahun
+        Cookie::queue('locale', $request->lang, $duration);
+        session(['locale' => $request->lang]);
+        return back();
     }
 }
