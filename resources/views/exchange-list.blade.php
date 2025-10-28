@@ -41,7 +41,7 @@
         <div class="">
             *{{ __('exchange-list.lastUpdatefootnote', ['currency' => $currencyCode, 'date' => $exchangeDate]) }}</div>
         <div class="">
-            *{{ __('exchange-list.changesFootnote', ['date' => now()->subDay()->format('Y-m-d') == $yesterdayDate->format('Y-m-d') ? __('exchange-list.theadChangesYesterday') : __('exchange-list.theadChangesNotYesterday') . $yesterdayDate->translatedFormat('d F Y')]) }}
+            *{{ __('exchange-list.changesFootnote', ['date' => now()->subDay()->format('Y-m-d') == $yesterdayDate->format('Y-m-d') ? __('exchange-list.theadChangesYesterday') : __('exchange-list.theadChangesNotYesterday') . " " .$yesterdayDate->translatedFormat('d F Y')]) }}
         </div>
     </div>
 

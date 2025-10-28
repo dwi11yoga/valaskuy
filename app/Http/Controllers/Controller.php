@@ -19,7 +19,7 @@ abstract class Controller
             $apiVer = env('CURRENCY_API_VER', 'v1');
             $apiDate = env('CURRENCY_API_DATE', 'latest');
             $apiEndpoint = 'currencies';
-            $urlAPI = $apiUrl . '@' . $apiDate . '/' . 'v5' . '/' . $apiEndpoint . '.json';
+            $urlAPI = $apiUrl . '@' . $apiDate . '/' . 'v1' . '/' . $apiEndpoint . '.json';
 
             // dapatkan daftar mata uang dari api
             $currencyList = Http::timeout(5)->get($urlAPI);
